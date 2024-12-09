@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error, .result {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .result {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Получить информацию о погоде</h1>
+        <form method="POST">
+            <label for="city_a">Город a:</label>
+            <input type="text" id="city_a" name="Город_a" placeholder="Пример: Одесса" required>
+
+            <label for="city_b">Город Б:</label>
+            <input type="text" id="city_b" name="Город_b" placeholder="Пример: Москва" required>
+
+            <button type="submit">Получить погоду</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if weather_info_a %}
+            <div class="result">
+                <h3>Информация о погоде для города А:</h3>
+                <p><strong>Температура:</strong> {{ weather_info_a.temperature_celsius }} °C</p>
+                <p><strong>Скорость ветра:</strong> {{ weather_info_a.wind_speed }} км/ч</p>
+                <p><strong>Влажность:</strong> {{ weather_info_a.humidity_percentage }}</p>
+                <p><strong>Вероятность осадков:</strong> {{ weather_info_a.precipitation_probability }}%</p>
+                <h4>{{ favorability_a }}</h4>
+            </div>
+        {% endif %}
+
+        {% if weather_info_b %}
+            <div class="result">
+                <h3>Информация о погоде для города Б:</h3>
+                <p><strong>Температура:</strong> {{ weather_info_b.temperature_celsius }} °C</p>
+                <p><strong>Скорость ветра:</strong> {{ weather_info_b.wind_speed }} км/ч</p>
+                <p><strong>Влажность:</strong> {{ weather_info_b.humidity_percentage }}</p>
+                <p><strong>Вероятность осадков:</strong> {{ weather_info_b.precipitation_probability }}%</p>
+                <h4>{{ favorability_b }}</h4>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
