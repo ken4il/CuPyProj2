@@ -9,6 +9,7 @@ def req(city):
     try:
         response = requests.get(location_url)
         data = response.json()
+        print(data)
         if data:
             lat = data[0]['GeoPosition']['Latitude']
             long = data[0]['GeoPosition']['Longitude']
